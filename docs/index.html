@@ -37,20 +37,19 @@
     </section>
 
     <section id="explore" class="demo-section wrap">
-      <div class="section-top"><div><span class="eyebrow">Explore the review experience</span><h2>Look closer. Measure precisely.</h2></div><p>Select a lead to inspect its waveform.<br>Then move or resize a bounding box.</p></div>
+      <div class="section-top"><div><span class="eyebrow">Explore the review experience</span><h2>Select. Drag. Refine.</h2></div><p>Select a lead to inspect its waveform.<br>Then move or resize a bounding box.</p></div>
       <div class="workspace">
         <div class="workspace-bar"><span><span class="status-dot"></span> Interactive preview</span><span class="sample">Sample <b id="sample-number">1</b>/3</span><div><button id="previous" aria-label="Previous demo sample">←</button><button id="next" aria-label="Next demo sample">→</button></div></div>
-        <div class="workspace-body"><div id="lead-grid" class="lead-grid" aria-label="Twelve ECG leads"></div><aside class="demo-side"><span class="eyebrow">Your view</span><h3>Context for every<br>candidate region.</h3><p>Select a lead, then drag its bounding boxes or resize them using the corner handles. Measure intervals to inspect timing.</p><label class="switch-row"><input id="annotations" type="checkbox" checked><span>Show annotations</span></label><div class="legend"><span></span> Example annotation</div><div class="demo-note">Synthetic demo data<br>This interactive preview uses generated signals.</div></aside></div>
-        <div class="detail-header"><div><span class="eyebrow">Selected lead</span><h3 id="detail-title">Lead II</h3></div><button id="measure" class="tool" aria-pressed="false">↔ Measure interval</button></div>
+        <div class="workspace-body"><div id="lead-grid" class="lead-grid" aria-label="Twelve ECG leads"></div><aside class="demo-side"><span class="eyebrow">Your view</span><h3>Context for every<br>candidate region.</h3><p>Select a lead, then drag its bounding boxes or resize them using the corner handles.</p><label class="switch-row"><input id="annotations" type="checkbox" checked><span>Show annotations</span></label><div class="legend"><span></span> Example annotation</div><div class="demo-note">Synthetic demo data<br>This interactive preview uses generated signals.</div></aside></div>
+        <div class="detail-header"><div><span class="eyebrow">Selected lead</span><h3 id="detail-title">Lead II</h3></div><span class="edit-badge">Drag & resize bounding boxes</span></div>
         <div id="detail-wrap" class="detail-wrap"><svg id="detail" viewBox="0 0 1000 200" role="img" aria-label="Synthetic lead II waveform"></svg></div>
-        <div class="detail-footer"><span id="measurement" role="status" aria-live="polite">Select “Measure interval”, then choose two points on the waveform.</span><button id="reset" class="text-button">Reset points ↺</button></div>
+        <div class="detail-footer"><span id="box-status" role="status" aria-live="polite">Drag inside a box to move it. Drag its corner handles to resize it.</span></div>
         <div class="box-editor" aria-label="Edit annotation bounding box">
           <label>Annotation<select id="box-select"><option value="0">Box 1</option><option value="1">Box 2</option></select></label>
           <label>Start (seconds)<input id="box-start" type="number" min="0" max="9.9" step="0.001"></label>
           <label>End (seconds)<input id="box-end" type="number" min="0.1" max="10" step="0.001"></label>
           <button id="apply-box" class="tool">Update box</button>
         </div>
-        <div id="accessible-measure" class="accessible-measure" hidden><label>First point (seconds)<input id="point-one" type="number" min="0" max="10" step="0.01" value="2"></label><label>Second point (seconds)<input id="point-two" type="number" min="0" max="10" step="0.01" value="3"></label><button id="calculate" class="tool">Calculate interval</button></div>
       </div>
       <p class="caption">Try moving and resizing bounding boxes on a red ECG grid, or enter their start and end times. Edits stay in this preview during your visit; signals and annotations are illustrative. Anomaly-type management is available in the desktop app.</p>
     </section>

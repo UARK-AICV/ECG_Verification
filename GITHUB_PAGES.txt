@@ -25,5 +25,5 @@ The published page URL is https://uark-aicv.github.io/ECG_Verification/.
 
 The page presents the project objective and workflow: PQRST segmentation,
 clinical-rule-guided candidate localization, and clinician annotation refinement.
-The browser preview demonstrates lead selection, visibility, and measurement;
-annotation editing is performed in the desktop application.
+The browser preview demonstrates lead selection, visibility, and draggable, resizable bounding boxes;
+the desktop application also supports anomaly-type management.

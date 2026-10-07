@@ -1,13 +1,13 @@
 'use strict';
 const leads = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6'];
 const tileOrder = ['I', 'V1', 'II', 'V2', 'III', 'V3', 'aVR', 'V4', 'aVL', 'V5', 'aVF', 'V6'];
-let sample = 1, selectedLead = 'II', measuring = false, points = [];
+let sample = 1, selectedLead = 'II';
 const annotations = new Map();
 let activeBox = 0, drag = null;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 function boxes(lead = selectedLead) {
   const key = `${sample}:${lead}`;
-  if (!annotations.has(key)) annotations.set(key, [{start: 2.2, end: 2.8, top: 0.12, bottom: 0.88}, {start: 5.6, end: 6.2, top: 0.12, bottom: 0.88}]);
+  if (!annotations.has(key)) annotations.set(key, [{start: 2.0, end: 3.0, top: 0.28, bottom: 0.73}, {start: 5.4, end: 6.4, top: 0.35, bottom: 0.80}]);
   return annotations.get(key);
 }
 const byId = id => document.getElementById(id);
@@ -35,21 +35,16 @@ function svgContent(lead, width, height, detail = false) {
     boxes(lead).forEach((box, index) => {
       const x = 20 + (width - 40) * box.start / 10, right = 20 + (width - 40) * box.end / 10;
       const plotHeight = height - (detail ? 25 : 0), y = box.top * plotHeight, bottom = box.bottom * plotHeight;
-      content += `<rect class="annotation-box" data-box="${index}" data-handle="move" x="${x}" y="${y}" width="${right-x}" height="${bottom-y}" fill="#e85d78" fill-opacity="0.15" stroke="${detail && index === activeBox ? '#9e2442' : '#d64462'}" stroke-width="${detail ? 2 : 1}"/>`;
-      if (detail && !measuring) {
+      content += `<rect class="annotation-box" data-box="${index}" data-handle="move" x="${x}" y="${y}" width="${right-x}" height="${bottom-y}" fill="#2875d9" fill-opacity="0.08" stroke="${detail && index === activeBox ? '#1457ad' : '#2875d9'}" stroke-width="${detail ? 2 : 1}"/>`;
+      if (detail) {
         [['nw',x,y],['ne',right,y],['sw',x,bottom],['se',right,bottom]].forEach(([handle,hx,hy]) => {
-          content += `<rect class="box-handle ${handle}" data-box="${index}" data-handle="${handle}" x="${hx-6}" y="${hy-6}" width="12" height="12" rx="2" fill="#fff" stroke="#9e2442" stroke-width="2"/>`;
+          content += `<rect class="box-handle ${handle}" data-box="${index}" data-handle="${handle}" x="${hx-6}" y="${hy-6}" width="12" height="12" rx="2" fill="#fff" stroke="#1457ad" stroke-width="2"/>`;
         });
       }
     });
   }
   if (detail) {
     for (let t = 0; t <= 10; t++) content += `<text x="${20 + (width - 40) * t / 10}" y="${height - 5}" text-anchor="middle" fill="#65756b" font-size="12">${t}s</text>`;
-    points.forEach(t => { const x = 20 + (width - 40) * t / 10; content += `<line x1="${x}" x2="${x}" y1="8" y2="${height - 25}" stroke="#245749" stroke-width="2" stroke-dasharray="5 4"/><circle cx="${x}" cy="10" r="4" fill="#245749"/>`; });
-    if (points.length === 2) {
-      const first = 20 + (width - 40) * Math.min(...points) / 10, last = 20 + (width - 40) * Math.max(...points) / 10;
-      content += `<line x1="${first}" x2="${last}" y1="26" y2="26" stroke="#245749" stroke-width="2"/><text x="${(first + last) / 2}" y="20" fill="#153e35" font-size="13" text-anchor="middle">Δt = ${Math.abs(points[1] - points[0]).toFixed(3)}s</text>`;
-    }
   }
   return content;
 }
@@ -57,10 +52,7 @@ function renderDetail() {
   byId('detail-title').textContent = `Lead ${selectedLead}`;
   byId('detail').setAttribute('aria-label', `Synthetic lead ${selectedLead} waveform, 0 to 10 seconds`);
   byId('detail').innerHTML = svgContent(selectedLead, 1000, 200, true);
-  byId('measurement').textContent = points.length === 2
-    ? `t₁ = ${points[0].toFixed(3)}s · t₂ = ${points[1].toFixed(3)}s · Δt = ${Math.abs(points[1] - points[0]).toFixed(3)}s`
-    : points.length === 1 ? `First point: ${points[0].toFixed(3)}s. Choose a second point.`
-    : measuring ? 'Choose two points on the waveform, or enter times below.' : 'Drag a bounding box to move it. Drag a corner to resize it, or edit its times below.';
+  byId('box-status').textContent = 'Drag inside a blue box to move it in any direction. Drag a corner to change its width and height.';
   const box = boxes()[activeBox];
   byId('box-select').value = String(activeBox);
   byId('box-start').value = box.start.toFixed(3);
@@ -73,7 +65,7 @@ function render() {
       const button = document.createElement('button');
       button.className = 'lead-tile'; button.dataset.lead = lead;
       button.setAttribute('aria-label', `Inspect lead ${lead}`);
-      button.addEventListener('click', () => { selectedLead = lead; points = []; render(); });
+      button.addEventListener('click', () => { selectedLead = lead; render(); });
       grid.appendChild(button);
     });
   }
@@ -86,30 +78,9 @@ function render() {
   byId('previous').disabled = sample === 1; byId('next').disabled = sample === 3;
   renderDetail();
 }
-byId('previous').addEventListener('click', () => { sample = Math.max(1, sample - 1); points = []; render(); });
-byId('next').addEventListener('click', () => { sample = Math.min(3, sample + 1); points = []; render(); });
+byId('previous').addEventListener('click', () => { sample = Math.max(1, sample - 1); render(); });
+byId('next').addEventListener('click', () => { sample = Math.min(3, sample + 1); render(); });
 byId('annotations').addEventListener('change', render);
-byId('measure').addEventListener('click', () => {
-  measuring = !measuring; points = [];
-  byId('measure').setAttribute('aria-pressed', String(measuring));
-  byId('accessible-measure').hidden = !measuring;
-  document.body.classList.toggle('measuring', measuring); renderDetail();
-});
-byId('detail').addEventListener('click', event => {
-  if (!measuring) return;
-  const point = byId('detail').createSVGPoint(); point.x = event.clientX; point.y = event.clientY;
-  const mapped = point.matrixTransform(byId('detail').getScreenCTM().inverse());
-  const t = Math.max(0, Math.min(10, (mapped.x - 20) / 960 * 10));
-  if (points.length === 2) points = [];
-  points.push(t); renderDetail();
-});
-byId('reset').addEventListener('click', () => { points = []; renderDetail(); });
-byId('calculate').addEventListener('click', () => {
-  const values = [byId('point-one'), byId('point-two')];
-  if (!values.every(input => input.reportValidity())) return;
-  if (values.some(input => input.value === '')) { byId('measurement').textContent = 'Enter both times to calculate the interval.'; return; }
-  points = values.map(input => Number(input.value)); renderDetail();
-});
 render();
 
 function pointerPosition(event) {
@@ -119,7 +90,7 @@ function pointerPosition(event) {
 }
 byId('detail').addEventListener('pointerdown', event => {
   const target = event.target.closest('[data-box]');
-  if (measuring || !target || event.button !== 0) return;
+  if (!target || event.button !== 0) return;
   event.preventDefault();
   activeBox = Number(target.dataset.box);
   drag = {id: event.pointerId, handle: target.dataset.handle, origin: pointerPosition(event), box: {...boxes()[activeBox]}};
@@ -156,7 +127,7 @@ byId('apply-box').addEventListener('click', () => {
   const start = byId('box-start'), end = byId('box-end');
   if (!start.reportValidity() || !end.reportValidity()) return;
   if (start.value === '' || end.value === '' || Number(end.value) - Number(start.value) < 0.1) {
-    byId('measurement').textContent = 'Enter start and end times at least 0.1 seconds apart.'; return;
+    byId('box-status').textContent = 'Enter start and end times at least 0.1 seconds apart.'; return;
   }
   Object.assign(boxes()[activeBox], {start: Number(start.value), end: Number(end.value)});
   render();
