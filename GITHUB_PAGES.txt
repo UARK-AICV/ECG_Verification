@@ -1,0 +1,28 @@
+ECG Verification project page
+
+The website is in docs/. It uses static HTML, CSS, and JavaScript.
+Only synthetic signals are used. The deployment uploads docs/ only,
+not sample/, processed/, or any patient files.
+
+LOCAL PREVIEW
+From ECG_Verification:
+  ecg/bin/python -m http.server 8080 --directory docs
+Open http://localhost:8080 in your browser. Stop with Ctrl+C.
+You can also open docs/index.html directly.
+
+PUBLISH ON GITHUB PAGES
+The repository root must contain docs/ and .github/workflows/pages.yml.
+Upload or commit these paths at the root of the ECG Verification repository.
+In GitHub, open Settings > Pages > Build and deployment and select GitHub Actions.
+Push to main/master, or open Actions > Publish project page > Run workflow.
+The completed deployment reports the website URL.
+For a project repository, the URL is https://OWNER.github.io/REPOSITORY/.
+
+This workspace currently belongs to a parent Git repository. If publishing
+from that parent instead of a dedicated project repository, move/copy the
+workflow to the parent .github/workflows/ and adjust its upload path and
+push path filters to include ECG_Verification/docs/.
+
+The setup cards explain using packaged builds. They do not claim a Windows
+executable is available or link to nonexistent downloads. Publish tested
+packages as GitHub Releases when available.
