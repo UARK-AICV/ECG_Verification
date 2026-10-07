@@ -1,0 +1,11 @@
+__pycache__/
+processed/
+ecg/
+*.py[cod]
+.DS_Store
+.venv/
+venv/
+build/
+dist/
+.env
+.env.*

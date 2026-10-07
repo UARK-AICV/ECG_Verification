@@ -1,0 +1,440 @@
+[
+  {
+    "name": "non-diagnostic T abnormalities",
+    "color": "#E51616",
+    "class_order": 0,
+    "abnormal": 1
+  },
+  {
+    "name": "non-specific ST changes",
+    "color": "#E52816",
+    "class_order": 1,
+    "abnormal": 1
+  },
+  {
+    "name": "digitalis-effect",
+    "color": "#E53916",
+    "class_order": 2,
+    "abnormal": 1
+  },
+  {
+    "name": "long QT-interval",
+    "color": "#E54B16",
+    "class_order": 3,
+    "abnormal": 1
+  },
+  {
+    "name": "normal ECG",
+    "color": "#E55C16",
+    "class_order": 4,
+    "abnormal": 0
+  },
+  {
+    "name": "inferior myocardial infarction",
+    "color": "#E56E16",
+    "class_order": 5,
+    "abnormal": 1
+  },
+  {
+    "name": "anteroseptal myocardial infarction",
+    "color": "#E57F16",
+    "class_order": 6,
+    "abnormal": 1
+  },
+  {
+    "name": "left ventricular hypertrophy",
+    "color": "#E59116",
+    "class_order": 7,
+    "abnormal": 1
+  },
+  {
+    "name": "left anterior fascicular block",
+    "color": "#E5A216",
+    "class_order": 8,
+    "abnormal": 1
+  },
+  {
+    "name": "non-specific ischemic",
+    "color": "#E5B416",
+    "class_order": 9,
+    "abnormal": 1
+  },
+  {
+    "name": "incomplete right bundle branch block",
+    "color": "#E5C516",
+    "class_order": 10,
+    "abnormal": 1
+  },
+  {
+    "name": "first degree AV block",
+    "color": "#E5D616",
+    "class_order": 11,
+    "abnormal": 1
+  },
+  {
+    "name": "non-specific intraventricular conduction disturbance (block)",
+    "color": "#E2E516",
+    "class_order": 12,
+    "abnormal": 1
+  },
+  {
+    "name": "ischemic in anterolateral leads",
+    "color": "#D1E516",
+    "class_order": 13,
+    "abnormal": 1
+  },
+  {
+    "name": "complete right bundle branch block",
+    "color": "#BFE516",
+    "class_order": 14,
+    "abnormal": 1
+  },
+  {
+    "name": "complete left bundle branch block",
+    "color": "#AEE516",
+    "class_order": 15,
+    "abnormal": 1
+  },
+  {
+    "name": "inferolateral myocardial infarction",
+    "color": "#9CE516",
+    "class_order": 16,
+    "abnormal": 1
+  },
+  {
+    "name": "left atrial overload/enlargement",
+    "color": "#8BE516",
+    "class_order": 17,
+    "abnormal": 1
+  },
+  {
+    "name": "anterior myocardial infarction",
+    "color": "#79E516",
+    "class_order": 18,
+    "abnormal": 1
+  },
+  {
+    "name": "anterolateral myocardial infarction",
+    "color": "#68E516",
+    "class_order": 19,
+    "abnormal": 1
+  },
+  {
+    "name": "ischemic in inferior leads",
+    "color": "#56E516",
+    "class_order": 20,
+    "abnormal": 1
+  },
+  {
+    "name": "subendocardial injury in anteroseptal leads",
+    "color": "#45E516",
+    "class_order": 21,
+    "abnormal": 1
+  },
+  {
+    "name": "lateral myocardial infarction",
+    "color": "#34E516",
+    "class_order": 22,
+    "abnormal": 1
+  },
+  {
+    "name": "ischemic in inferolateral leads",
+    "color": "#22E516",
+    "class_order": 23,
+    "abnormal": 1
+  },
+  {
+    "name": "left posterior fascicular block",
+    "color": "#16E51C",
+    "class_order": 24,
+    "abnormal": 1
+  },
+  {
+    "name": "ischemic in anteroseptal leads",
+    "color": "#16E52E",
+    "class_order": 25,
+    "abnormal": 1
+  },
+  {
+    "name": "subendocardial injury in anterolateral leads",
+    "color": "#16E53F",
+    "class_order": 26,
+    "abnormal": 1
+  },
+  {
+    "name": "ischemic in lateral leads",
+    "color": "#16E551",
+    "class_order": 27,
+    "abnormal": 1
+  },
+  {
+    "name": "right ventricular hypertrophy",
+    "color": "#16E562",
+    "class_order": 28,
+    "abnormal": 1
+  },
+  {
+    "name": "ST-T changes compatible with ventricular aneurysm",
+    "color": "#16E574",
+    "class_order": 29,
+    "abnormal": 1
+  },
+  {
+    "name": "right atrial overload/enlargement",
+    "color": "#16E585",
+    "class_order": 30,
+    "abnormal": 1
+  },
+  {
+    "name": "electrolytic disturbance or drug (former EDIS)",
+    "color": "#16E596",
+    "class_order": 31,
+    "abnormal": 1
+  },
+  {
+    "name": "Wolf-Parkinson-White syndrome",
+    "color": "#16E5A8",
+    "class_order": 32,
+    "abnormal": 1
+  },
+  {
+    "name": "incomplete left bundle branch block",
+    "color": "#16E5B9",
+    "class_order": 33,
+    "abnormal": 1
+  },
+  {
+    "name": "inferoposterolateral myocardial infarction",
+    "color": "#16E5CB",
+    "class_order": 34,
+    "abnormal": 1
+  },
+  {
+    "name": "ischemic in anterior leads",
+    "color": "#16E5DC",
+    "class_order": 35,
+    "abnormal": 1
+  },
+  {
+    "name": "inferoposterior myocardial infarction",
+    "color": "#16DCE5",
+    "class_order": 36,
+    "abnormal": 1
+  },
+  {
+    "name": "septal hypertrophy",
+    "color": "#16CBE5",
+    "class_order": 37,
+    "abnormal": 1
+  },
+  {
+    "name": "subendocardial injury in inferior leads",
+    "color": "#16B9E5",
+    "class_order": 38,
+    "abnormal": 1
+  },
+  {
+    "name": "subendocardial injury in lateral leads",
+    "color": "#16A8E5",
+    "class_order": 39,
+    "abnormal": 1
+  },
+  {
+    "name": "posterior myocardial infarction",
+    "color": "#1696E5",
+    "class_order": 40,
+    "abnormal": 1
+  },
+  {
+    "name": "third degree AV block",
+    "color": "#1685E5",
+    "class_order": 41,
+    "abnormal": 1
+  },
+  {
+    "name": "subendocardial injury in inferolateral leads",
+    "color": "#1674E5",
+    "class_order": 42,
+    "abnormal": 1
+  },
+  {
+    "name": "second degree AV block",
+    "color": "#1662E5",
+    "class_order": 43,
+    "abnormal": 1
+  },
+  {
+    "name": "abnormal QRS",
+    "color": "#1651E5",
+    "class_order": 44,
+    "abnormal": 1
+  },
+  {
+    "name": "ventricular premature complex",
+    "color": "#163FE5",
+    "class_order": 45,
+    "abnormal": 1
+  },
+  {
+    "name": "non-specific ST depression",
+    "color": "#162EE5",
+    "class_order": 46,
+    "abnormal": 1
+  },
+  {
+    "name": "voltage criteria (QRS) for left ventricular hypertrophy",
+    "color": "#161CE5",
+    "class_order": 47,
+    "abnormal": 1
+  },
+  {
+    "name": "Q waves present",
+    "color": "#2216E5",
+    "class_order": 48,
+    "abnormal": 1
+  },
+  {
+    "name": "low amplitude T-waves",
+    "color": "#3416E5",
+    "class_order": 49,
+    "abnormal": 1
+  },
+  {
+    "name": "non-specific T-wave changes",
+    "color": "#4516E5",
+    "class_order": 50,
+    "abnormal": 1
+  },
+  {
+    "name": "atrial premature complex",
+    "color": "#5616E5",
+    "class_order": 51,
+    "abnormal": 1
+  },
+  {
+    "name": "prolonged PR interval",
+    "color": "#6816E5",
+    "class_order": 52,
+    "abnormal": 1
+  },
+  {
+    "name": "inverted T-waves",
+    "color": "#7916E5",
+    "class_order": 53,
+    "abnormal": 1
+  },
+  {
+    "name": "low QRS voltages in the frontal and horizontal leads",
+    "color": "#8B16E5",
+    "class_order": 54,
+    "abnormal": 1
+  },
+  {
+    "name": "high QRS voltage",
+    "color": "#9C16E5",
+    "class_order": 55,
+    "abnormal": 1
+  },
+  {
+    "name": "T-wave abnormality",
+    "color": "#AE16E5",
+    "class_order": 56,
+    "abnormal": 1
+  },
+  {
+    "name": "non-specific ST elevation",
+    "color": "#BF16E5",
+    "class_order": 57,
+    "abnormal": 1
+  },
+  {
+    "name": "premature complex(es)",
+    "color": "#D116E5",
+    "class_order": 58,
+    "abnormal": 1
+  },
+  {
+    "name": "sinus rhythm",
+    "color": "#E216E5",
+    "class_order": 59,
+    "abnormal": 0
+  },
+  {
+    "name": "atrial fibrillation",
+    "color": "#E516D6",
+    "class_order": 60,
+    "abnormal": 1
+  },
+  {
+    "name": "sinus tachycardia",
+    "color": "#E516C5",
+    "class_order": 61,
+    "abnormal": 1
+  },
+  {
+    "name": "sinus arrhythmia",
+    "color": "#E516B4",
+    "class_order": 62,
+    "abnormal": 1
+  },
+  {
+    "name": "sinus bradycardia",
+    "color": "#E516A2",
+    "class_order": 63,
+    "abnormal": 1
+  },
+  {
+    "name": "normal functioning artificial pacemaker",
+    "color": "#E51691",
+    "class_order": 64,
+    "abnormal": 1
+  },
+  {
+    "name": "supraventricular arrhythmia",
+    "color": "#E5167F",
+    "class_order": 65,
+    "abnormal": 1
+  },
+  {
+    "name": "bigeminal pattern (unknown origin, SV or Ventricular)",
+    "color": "#E5166E",
+    "class_order": 66,
+    "abnormal": 1
+  },
+  {
+    "name": "atrial flutter",
+    "color": "#E5165C",
+    "class_order": 67,
+    "abnormal": 1
+  },
+  {
+    "name": "supraventricular tachycardia",
+    "color": "#E5164B",
+    "class_order": 68,
+    "abnormal": 1
+  },
+  {
+    "name": "paroxysmal supraventricular tachycardia",
+    "color": "#E51639",
+    "class_order": 69,
+    "abnormal": 1
+  },
+  {
+    "name": "trigeminal pattern (unknown origin, SV or Ventricular)",
+    "color": "#E51628",
+    "class_order": 70,
+    "abnormal": 1
+  },
+  {
+    "name": "Abnormal Q waves",
+    "color": "#0bbcbd",
+    "class_order": 71,
+    "abnormal": 1
+  },
+  {
+    "name": "Atrial Bigenminy",
+    "color": "#bdba35",
+    "class_order": 72,
+    "abnormal": 1
+  }
+]
