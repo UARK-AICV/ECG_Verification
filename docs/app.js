@@ -2,6 +2,14 @@
 const leads = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6'];
 const tileOrder = ['I', 'V1', 'II', 'V2', 'III', 'V3', 'aVR', 'V4', 'aVL', 'V5', 'aVF', 'V6'];
 let sample = 1, selectedLead = 'II', measuring = false, points = [];
+const annotations = new Map();
+let activeBox = 0, drag = null;
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+function boxes(lead = selectedLead) {
+  const key = `${sample}:${lead}`;
+  if (!annotations.has(key)) annotations.set(key, [{start: 2.2, end: 2.8, top: 0.12, bottom: 0.88}, {start: 5.6, end: 6.2, top: 0.12, bottom: 0.88}]);
+  return annotations.get(key);
+}
 const byId = id => document.getElementById(id);
 const gaussian = (x, center, width) => Math.exp(-((x - center) ** 2) / (2 * width ** 2));
 function signal(t, lead) {
@@ -21,11 +29,20 @@ function waveform(lead, width, baseline, amplitude) {
 }
 function svgContent(lead, width, height, detail = false) {
   const prefix = `${detail ? 'detail' : 'tile'}-${lead}`;
-  let content = `<defs><pattern id="${prefix}-small" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="#f5d5d5" stroke-width="0.6"/></pattern><pattern id="${prefix}-big" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="url(#${prefix}-small)"/><path d="M40 0H0V40" fill="none" stroke="#df9b9b" stroke-width="0.7"/></pattern></defs><rect width="${width}" height="${height}" fill="url(#${prefix}-big)"/>`;
-  if (byId('annotations').checked) {
-    [2.4, 5.8].forEach(t => { content += `<rect x="${20 + (width - 40) * t / 10}" y="0" width="${(width - 40) * 0.28 / 10}" height="${height - (detail ? 25 : 0)}" fill="#99bd76" opacity="0.3"/>`; });
-  }
+  let content = `<defs><pattern id="${prefix}-small" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="#edaaaa" stroke-width="0.7"/></pattern><pattern id="${prefix}-big" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="url(#${prefix}-small)"/><path d="M40 0H0V40" fill="none" stroke="#d96a6a" stroke-width="1"/></pattern></defs><rect width="${width}" height="${height}" fill="url(#${prefix}-big)"/>`;
   content += `<path d="${waveform(lead, width, height * 0.6, height * 0.39)}" fill="none" stroke="#254b40" stroke-width="${detail ? 1.8 : 1.3}" stroke-linejoin="round"/>`;
+  if (byId('annotations').checked) {
+    boxes(lead).forEach((box, index) => {
+      const x = 20 + (width - 40) * box.start / 10, right = 20 + (width - 40) * box.end / 10;
+      const plotHeight = height - (detail ? 25 : 0), y = box.top * plotHeight, bottom = box.bottom * plotHeight;
+      content += `<rect class="annotation-box" data-box="${index}" data-handle="move" x="${x}" y="${y}" width="${right-x}" height="${bottom-y}" fill="#e85d78" fill-opacity="0.15" stroke="${detail && index === activeBox ? '#9e2442' : '#d64462'}" stroke-width="${detail ? 2 : 1}"/>`;
+      if (detail && !measuring) {
+        [['nw',x,y],['ne',right,y],['sw',x,bottom],['se',right,bottom]].forEach(([handle,hx,hy]) => {
+          content += `<rect class="box-handle ${handle}" data-box="${index}" data-handle="${handle}" x="${hx-6}" y="${hy-6}" width="12" height="12" rx="2" fill="#fff" stroke="#9e2442" stroke-width="2"/>`;
+        });
+      }
+    });
+  }
   if (detail) {
     for (let t = 0; t <= 10; t++) content += `<text x="${20 + (width - 40) * t / 10}" y="${height - 5}" text-anchor="middle" fill="#65756b" font-size="12">${t}s</text>`;
     points.forEach(t => { const x = 20 + (width - 40) * t / 10; content += `<line x1="${x}" x2="${x}" y1="8" y2="${height - 25}" stroke="#245749" stroke-width="2" stroke-dasharray="5 4"/><circle cx="${x}" cy="10" r="4" fill="#245749"/>`; });
@@ -43,7 +60,11 @@ function renderDetail() {
   byId('measurement').textContent = points.length === 2
     ? `t₁ = ${points[0].toFixed(3)}s · t₂ = ${points[1].toFixed(3)}s · Δt = ${Math.abs(points[1] - points[0]).toFixed(3)}s`
     : points.length === 1 ? `First point: ${points[0].toFixed(3)}s. Choose a second point.`
-    : measuring ? 'Choose two points on the waveform, or enter times below.' : 'Select “Measure interval”, then choose two points on the waveform.';
+    : measuring ? 'Choose two points on the waveform, or enter times below.' : 'Drag a bounding box to move it. Drag a corner to resize it, or edit its times below.';
+  const box = boxes()[activeBox];
+  byId('box-select').value = String(activeBox);
+  byId('box-start').value = box.start.toFixed(3);
+  byId('box-end').value = box.end.toFixed(3);
 }
 function render() {
   const grid = byId('lead-grid');
@@ -90,3 +111,53 @@ byId('calculate').addEventListener('click', () => {
   points = values.map(input => Number(input.value)); renderDetail();
 });
 render();
+
+function pointerPosition(event) {
+  const svg = byId('detail'), point = svg.createSVGPoint();
+  point.x = event.clientX; point.y = event.clientY;
+  return point.matrixTransform(svg.getScreenCTM().inverse());
+}
+byId('detail').addEventListener('pointerdown', event => {
+  const target = event.target.closest('[data-box]');
+  if (measuring || !target || event.button !== 0) return;
+  event.preventDefault();
+  activeBox = Number(target.dataset.box);
+  drag = {id: event.pointerId, handle: target.dataset.handle, origin: pointerPosition(event), box: {...boxes()[activeBox]}};
+  byId('detail').setPointerCapture(event.pointerId);
+  renderDetail();
+});
+byId('detail').addEventListener('pointermove', event => {
+  if (!drag || event.pointerId !== drag.id) return;
+  const pos = pointerPosition(event), original = drag.box, box = boxes()[activeBox];
+  const dt = (pos.x - drag.origin.x) / 96, dy = (pos.y - drag.origin.y) / 175;
+  if (drag.handle === 'move') {
+    box.start = clamp(original.start + dt, 0, 10 - (original.end - original.start));
+    box.end = box.start + original.end - original.start;
+    box.top = clamp(original.top + dy, 0, 1 - (original.bottom - original.top));
+    box.bottom = box.top + original.bottom - original.top;
+  } else {
+    if (drag.handle.includes('w')) box.start = clamp(original.start + dt, 0, box.end - 0.1);
+    if (drag.handle.includes('e')) box.end = clamp(original.end + dt, box.start + 0.1, 10);
+    if (drag.handle.includes('n')) box.top = clamp(original.top + dy, 0, box.bottom - 0.08);
+    if (drag.handle.includes('s')) box.bottom = clamp(original.bottom + dy, box.top + 0.08, 1);
+  }
+  render();
+});
+function endDrag(event) {
+  if (!drag || event.pointerId !== drag.id) return;
+  drag = null;
+  if (byId('detail').hasPointerCapture(event.pointerId)) byId('detail').releasePointerCapture(event.pointerId);
+}
+byId('detail').addEventListener('pointerup', endDrag);
+byId('detail').addEventListener('pointercancel', endDrag);
+byId('detail').addEventListener('lostpointercapture', () => { drag = null; });
+byId('box-select').addEventListener('change', event => { activeBox = Number(event.target.value); renderDetail(); });
+byId('apply-box').addEventListener('click', () => {
+  const start = byId('box-start'), end = byId('box-end');
+  if (!start.reportValidity() || !end.reportValidity()) return;
+  if (start.value === '' || end.value === '' || Number(end.value) - Number(start.value) < 0.1) {
+    byId('measurement').textContent = 'Enter start and end times at least 0.1 seconds apart.'; return;
+  }
+  Object.assign(boxes()[activeBox], {start: Number(start.value), end: Number(end.value)});
+  render();
+});
