@@ -21,11 +21,19 @@
       <div class="facts"><span><b>12</b> leads, one view</span><span><b>500 Hz</b> sample rate</span><span><b>Local</b> data & edits</span></div>
     </section>
 
+    <section class="desktop-preview wrap" aria-labelledby="desktop-preview-title">
+      <div class="section-top"><div><span class="eyebrow">The desktop workspace</span><h2 id="desktop-preview-title">Twelve leads in view.</h2></div><p>See the app’s recording overview<br>with annotation spans and label controls.</p></div>
+      <figure class="desktop-screenshot">
+        <a href="figs/sample.png" aria-label="View the desktop screenshot at full size"><img src="figs/sample.png" width="1624" height="1050" alt="ECG Labelling Tool showing twelve ECG leads in two columns, colored annotation spans, sample navigation, and a label sidebar." loading="lazy" decoding="async"></a>
+        <figcaption class="caption">Desktop app screenshot. Select the image to view it at full size.</figcaption>
+      </figure>
+    </section>
+
     <section id="explore" class="demo-section wrap">
       <div class="section-top"><div><span class="eyebrow">01 / Take a closer look</span><h2>A rhythm worth exploring.</h2></div><p>Select a lead to inspect its waveform.<br>Then try annotations or interval measurement.</p></div>
       <div class="workspace">
         <div class="workspace-bar"><span><span class="status-dot"></span> Interactive preview</span><span class="sample">Sample <b id="sample-number">1</b>/3</span><div><button id="previous" aria-label="Previous demo sample">←</button><button id="next" aria-label="Next demo sample">→</button></div></div>
-        <div class="workspace-body"><div id="lead-grid" class="lead-grid" aria-label="Twelve ECG leads"></div><aside class="demo-side"><span class="eyebrow">Your view</span><h3>All the context.<br>None of the clutter.</h3><p>Twelve leads together, with a dedicated view for the details that matter.</p><label class="switch-row"><input id="annotations" type="checkbox" checked><span>Show annotations</span></label><div class="legend"><span></span> Example annotation</div><div class="demo-note">Synthetic demo data<br>No patient recordings are used on this page.</div></aside></div>
+        <div class="workspace-body"><div id="lead-grid" class="lead-grid" aria-label="Twelve ECG leads"></div><aside class="demo-side"><span class="eyebrow">Your view</span><h3>All the context.<br>None of the clutter.</h3><p>Twelve leads together, with a dedicated view for the details that matter.</p><label class="switch-row"><input id="annotations" type="checkbox" checked><span>Show annotations</span></label><div class="legend"><span></span> Example annotation</div><div class="demo-note">Synthetic demo data<br>This interactive preview uses generated signals.</div></aside></div>
         <div class="detail-header"><div><span class="eyebrow">Selected lead</span><h3 id="detail-title">Lead II</h3></div><button id="measure" class="tool" aria-pressed="false">↔ Measure interval</button></div>
         <div id="detail-wrap" class="detail-wrap"><svg id="detail" viewBox="0 0 1000 200" role="img" aria-label="Synthetic lead II waveform"></svg></div>
         <div class="detail-footer"><span id="measurement" role="status" aria-live="polite">Select “Measure interval”, then choose two points on the waveform.</span><button id="reset" class="text-button">Reset points ↺</button></div>
