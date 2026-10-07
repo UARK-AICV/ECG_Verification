@@ -23,6 +23,7 @@ This project has its own Git repository linked to
 https://github.com/UARK-AICV/ECG_Verification.git.
 The published page URL is https://uark-aicv.github.io/ECG_Verification/.
 
-The setup cards explain using packaged builds. They do not claim a Windows
-executable is available or link to nonexistent downloads. Publish tested
-packages as GitHub Releases when available.
+The page presents the project objective and workflow: PQRST segmentation,
+clinical-rule-guided candidate localization, and clinician annotation refinement.
+The browser preview demonstrates lead selection, visibility, and measurement;
+annotation editing is performed in the desktop application.

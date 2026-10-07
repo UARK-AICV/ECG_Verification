@@ -4,57 +4,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#153e35">
-  <meta name="description" content="ECG Verification: a desktop workspace for reviewing twelve ECG leads, editing annotations, and measuring intervals. Explore an interactive synthetic demo.">
-  <title>ECG Verification — Every lead. A clearer view.</title>
+  <meta name="description" content="From PQRST segmentation to clinical-rule-guided candidate anomaly localization, ECG Verification helps clinicians review and refine ECG annotations.">
+  <title>ECG Verification — From signal to clinical insight.</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="nav wrap"><a class="brand" href="#"><span class="brand-mark" aria-hidden="true">∿</span> ECG Verification</a><nav aria-label="Main"><a href="#explore">Explore</a><a href="#workflow">Workflow</a><a class="nav-cta" href="#start">Get started ↗</a></nav></header>
+  <header class="nav wrap"><a class="brand" href="#"><span class="brand-mark" aria-hidden="true">∿</span> ECG Verification</a><nav aria-label="Main"><a href="#objective">Objective</a><a href="#workflow">Workflow</a><a class="nav-cta" href="#explore">Explore the demo ↗</a></nav></header>
   <main id="main">
     <section class="hero wrap">
-      <div class="eyebrow"><span class="status-dot"></span> A focused workspace for ECG annotation</div>
-      <h1>Every lead.<br>A <em>clearer</em> view.</h1>
-      <div class="hero-bottom"><p>See the whole recording. Inspect the details.<br>Review and refine ECG annotations in one desktop workspace.</p><a class="button" href="#explore">Explore the interactive demo <span>↓</span></a></div>
-      <div class="facts"><span><b>12</b> leads, one view</span><span><b>500 Hz</b> sample rate</span><span><b>Local</b> data & edits</span></div>
+      <div class="eyebrow"><span class="status-dot"></span> ECG interpretation · Guided by rules, refined by clinicians</div>
+      <h1>From signal.<br>To <em>insight.</em></h1>
+      <div class="hero-bottom"><p>Locate candidate anomalies. Bring clinical judgment to every boundary.<br>A visual workspace for clinicians to review and refine ECG annotations.</p><a class="button" href="#explore">Explore the interactive demo <span>↓</span></a></div>
+      <div class="facts"><span><b>PQRST</b> segmentation</span><span><b>Clinical rules</b> candidate localization</span><span><b>Clinician</b> review & refinement</span></div>
     </section>
 
+    <section id="objective" class="objective wrap" aria-labelledby="objective-title">
+      <div><span class="eyebrow">The objective</span><h2 id="objective-title">Make the region of interest<br>easier to review.</h2></div>
+      <div class="objective-copy"><p>The project connects ECG segmentation with clinical review. First, the recording is segmented into P, Q, R, S, and T components. Clinical rules then use that structure to localize candidate anomalous segments and generate preliminary annotations, or pseudo-labels.</p><p>ECG Verification brings those candidates into a visual workspace where doctors can inspect the waveform, refine the marked region, and add anomaly types. The goal is to support precise annotation, with clinical judgment guiding the final interpretation.</p></div>
+    </section>
+
+    <section id="workflow" class="workflow wrap"><span class="eyebrow">The project workflow</span><h2>Segment. Localize. Refine.</h2><div class="feature-grid"><article><span class="feature-number">01</span><h3>Segment the ECG</h3><p>Identify the PQRST components to establish the waveform structure used by the next stage of analysis.</p><div class="feature-tag">ECG recording → PQRST segments</div></article><article><span class="feature-number">02</span><h3>Localize candidate anomalies</h3><p>Apply clinical rules to the segmented signal to propose regions of interest. These pseudo-labels give clinicians a starting point for review.</p><div class="feature-tag">Clinical rules → candidate regions</div></article><article><span class="feature-number">03</span><h3>Refine with clinical judgment</h3><p>Inspect each candidate in context. Move or resize its bounding box, add missed regions, remove unsuitable annotations, and assign or add anomaly types.</p><div class="feature-tag">Clinician review → refined annotations</div></article></div></section>
+
     <section class="desktop-preview wrap" aria-labelledby="desktop-preview-title">
-      <div class="section-top"><div><span class="eyebrow">The desktop workspace</span><h2 id="desktop-preview-title">Twelve leads in view.</h2></div><p>See the app’s recording overview<br>with annotation spans and label controls.</p></div>
+      <div class="section-top"><div><span class="eyebrow">The desktop workspace</span><h2 id="desktop-preview-title">The whole signal.<br>The precise region.</h2></div><p>Review candidate regions across twelve leads.<br>Focus on a lead to refine its annotations.</p></div>
       <figure class="desktop-screenshot">
         <a href="figs/sample.png" aria-label="View the desktop screenshot at full size"><img src="figs/sample.png" width="1624" height="1050" alt="ECG Labelling Tool showing twelve ECG leads in two columns, colored annotation spans, sample navigation, and a label sidebar." loading="lazy" decoding="async"></a>
-        <figcaption class="caption">Desktop app screenshot. Select the image to view it at full size.</figcaption>
+        <figcaption class="caption">The clinician review workspace: twelve-lead context, colored annotation regions, and anomaly labels. Select the screenshot to view it at full size.</figcaption>
       </figure>
     </section>
 
     <section id="explore" class="demo-section wrap">
-      <div class="section-top"><div><span class="eyebrow">01 / Take a closer look</span><h2>A rhythm worth exploring.</h2></div><p>Select a lead to inspect its waveform.<br>Then try annotations or interval measurement.</p></div>
+      <div class="section-top"><div><span class="eyebrow">Explore the review experience</span><h2>Look closer. Measure precisely.</h2></div><p>Select a lead to inspect its waveform.<br>Then try annotations or interval measurement.</p></div>
       <div class="workspace">
         <div class="workspace-bar"><span><span class="status-dot"></span> Interactive preview</span><span class="sample">Sample <b id="sample-number">1</b>/3</span><div><button id="previous" aria-label="Previous demo sample">←</button><button id="next" aria-label="Next demo sample">→</button></div></div>
-        <div class="workspace-body"><div id="lead-grid" class="lead-grid" aria-label="Twelve ECG leads"></div><aside class="demo-side"><span class="eyebrow">Your view</span><h3>All the context.<br>None of the clutter.</h3><p>Twelve leads together, with a dedicated view for the details that matter.</p><label class="switch-row"><input id="annotations" type="checkbox" checked><span>Show annotations</span></label><div class="legend"><span></span> Example annotation</div><div class="demo-note">Synthetic demo data<br>This interactive preview uses generated signals.</div></aside></div>
+        <div class="workspace-body"><div id="lead-grid" class="lead-grid" aria-label="Twelve ECG leads"></div><aside class="demo-side"><span class="eyebrow">Your view</span><h3>Context for every<br>candidate region.</h3><p>Compare leads, reveal example annotation spans, and measure the timing of a selected region.</p><label class="switch-row"><input id="annotations" type="checkbox" checked><span>Show annotations</span></label><div class="legend"><span></span> Example annotation</div><div class="demo-note">Synthetic demo data<br>This interactive preview uses generated signals.</div></aside></div>
         <div class="detail-header"><div><span class="eyebrow">Selected lead</span><h3 id="detail-title">Lead II</h3></div><button id="measure" class="tool" aria-pressed="false">↔ Measure interval</button></div>
         <div id="detail-wrap" class="detail-wrap"><svg id="detail" viewBox="0 0 1000 200" role="img" aria-label="Synthetic lead II waveform"></svg></div>
         <div class="detail-footer"><span id="measurement" role="status" aria-live="polite">Select “Measure interval”, then choose two points on the waveform.</span><button id="reset" class="text-button">Reset points ↺</button></div>
         <div id="accessible-measure" class="accessible-measure" hidden><label>First point (seconds)<input id="point-one" type="number" min="0" max="10" step="0.01" value="2"></label><label>Second point (seconds)<input id="point-two" type="number" min="0" max="10" step="0.01" value="3"></label><button id="calculate" class="tool">Calculate interval</button></div>
       </div>
-      <p class="caption">A browser demonstration of the workflow. The desktop app provides the annotation editing tools.</p>
+      <p class="caption">Try lead selection, annotation visibility, and interval measurement with synthetic signals. Bounding-box editing and anomaly-type management are available in the desktop app.</p>
     </section>
 
-    <section id="workflow" class="workflow wrap"><span class="eyebrow">02 / From overview to precision</span><h2>Stay with the signal.</h2><div class="feature-grid"><article><span class="feature-number">01</span><h3>See the complete picture</h3><p>A two-column, twelve-lead overview fits the window. Move between samples and keep your place with the sample counter.</p><div class="feature-tag">12 leads · no scrolling</div></article><article><span class="feature-number">02</span><h3>Refine the annotation</h3><p>Open an individual lead. Create a span, move it, resize its boundaries, or remove it. Toggle labels to focus your review.</p><div class="feature-tag">Create · resize · move · delete</div></article><article><span class="feature-number">03</span><h3>Make the interval clear</h3><p>Measure time between points. Mark first and last spans, then use Uniform Fill to distribute repeated annotations.</p><div class="feature-tag">Measure · mark · distribute</div></article></div></section>
-
-    <section class="local-section"><div class="wrap local-grid"><div><span class="eyebrow">Your files. Your workspace.</span><h2>Built to work<br>close to your data.</h2><p>The desktop app reads ECG recordings and labels from a local <code>sample</code> folder. Changes are saved to the annotation files, so your review stays with the recording.</p><span class="local-pill">Python + PySide6 + WFDB</span></div><div class="file-card"><div class="file-card-top"><span>THE DESKTOP DATA FOLDER</span><span>↙</span></div><pre><span>sample/</span>
-├── labels.json
-└── group/
-    └── record/
-        ├── record.hea
-        ├── record.dat
-        └── label.json</pre><p>Keep the folder beside the packaged app.<br>Record filenames match their folder name.</p></div></div></section>
-
-    <section id="start" class="start wrap"><div><span class="eyebrow">03 / Bring it to your desktop</span><h2>Your next review<br>starts here.</h2><p>Run from source, or use a packaged desktop build.<br>Packaged app users do not need Python.</p></div><div class="start-card"><div class="tabs" role="tablist" aria-label="Setup platform"><button id="tab-mac" role="tab" aria-selected="true" aria-controls="setup-panel" data-platform="mac">macOS</button><button id="tab-windows" role="tab" aria-selected="false" aria-controls="setup-panel" data-platform="windows" tabindex="-1">Windows</button><button id="tab-source" role="tab" aria-selected="false" aria-controls="setup-panel" data-platform="source" tabindex="-1">From source</button></div><div id="setup-panel" role="tabpanel" aria-labelledby="tab-mac" tabindex="0"></div><a id="repository-link" class="repo-link" hidden>View the project on GitHub ↗</a></div></section>
-    <section class="faq wrap"><h2>A few useful details.</h2><details><summary>Does the browser demo edit my ECG files?</summary><p>No. This page generates synthetic signals and runs entirely in your browser. Use the desktop app to review and save your own annotation files.</p></details><details><summary>What data format does the app expect?</summary><p>The sample folder contains labels.json and group/record subfolders. Each recording has WFDB .hea and .dat files plus label.json. The current app uses a 500 Hz sample rate.</p></details><details><summary>Can I share the app without requiring Python?</summary><p>Yes. A packaged desktop build includes Python and its dependencies. Keep the sample folder beside the app, and keep _internal beside the executable in a Windows build. Build each platform’s package on that platform.</p></details></section>
   </main>
-  <footer class="wrap"><a class="brand" href="#">∿ ECG Verification</a><span>A closer look at every lead.</span><span>Interactive demo · Synthetic signals</span></footer>
 </body>
 </html>

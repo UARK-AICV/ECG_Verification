@@ -89,34 +89,4 @@ byId('calculate').addEventListener('click', () => {
   if (values.some(input => input.value === '')) { byId('measurement').textContent = 'Enter both times to calculate the interval.'; return; }
   points = values.map(input => Number(input.value)); renderDetail();
 });
-const setup = {
-  mac: '<h3>Open the macOS app</h3><ol><li>Obtain the packaged macOS ZIP from the project maintainer or a published release.</li><li>Extract it into a writable folder.</li><li>Keep <code>sample/</code> beside <code>ECGVerification.app</code>, then open the app.</li></ol>',
-  windows: '<h3>Open the Windows app</h3><ol><li>Obtain the packaged Windows ZIP from the project maintainer or a published release.</li><li>Extract the entire folder before running it.</li><li>Open <code>ECGVerification.exe</code>. Keep <code>_internal/</code> and <code>sample/</code> beside it.</li></ol>',
-  source: '<h3>Run from the project folder</h3><p>Install Python 3.12 and keep the supplied sample folder in place. In an activated virtual environment:</p><pre><code>python -m pip install -r requirements.txt\npython main.py</code></pre>'
-};
-const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
-function selectPlatform(tab) {
-  tabs.forEach(item => { const active = item === tab; item.setAttribute('aria-selected', String(active)); item.tabIndex = active ? 0 : -1; });
-  byId('setup-panel').innerHTML = setup[tab.dataset.platform];
-  byId('setup-panel').setAttribute('aria-labelledby', tab.id);
-}
-tabs.forEach((tab, index) => {
-  tab.addEventListener('click', () => selectPlatform(tab));
-  tab.addEventListener('keydown', event => {
-    let target;
-    if (event.key === 'ArrowRight') target = tabs[(index + 1) % tabs.length];
-    if (event.key === 'ArrowLeft') target = tabs[(index + tabs.length - 1) % tabs.length];
-    if (event.key === 'Home') target = tabs[0];
-    if (event.key === 'End') target = tabs[tabs.length - 1];
-    if (target) { event.preventDefault(); selectPlatform(target); target.focus(); }
-  });
-});
-// GitHub project Pages provide the owner and repository through the URL.
-if (location.hostname.endsWith('.github.io')) {
-  const owner = location.hostname.slice(0, -10);
-  const repo = location.pathname.split('/').filter(Boolean)[0] || `${owner}.github.io`;
-  const link = byId('repository-link');
-  link.href = `https://github.com/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
-  link.hidden = false;
-}
-selectPlatform(tabs[0]); render();
+render();
