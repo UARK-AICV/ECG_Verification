@@ -1,4 +1,4 @@
-# ECG Verification
+# ECG Verification Tool
 
 A desktop workspace for clinicians to review twelve-lead ECG recordings and refine candidate anomaly annotations.
 
@@ -27,13 +27,13 @@ Keep recordings and annotations in `sample/`, with `labels.json` and `group/reco
 
 If you use this tool, cite the repository:
 
-> *ECG Verification* [Software]. https://github.com/UARK-AICV/ECG_Verification
+> UARK AICV. *ECG Verification Tool* [Software]. https://github.com/UARK-AICV/ECG_Verification
 
 ```bibtex
 @misc{ecg_verification,
-  title = {ECG Verification},
-  howpublished = {Software repository},
+  author = {{UARK AICV}},
+  title = {ECG Verification Tool},
   url = {https://github.com/UARK-AICV/ECG_Verification},
-  note = {Include the commit hash or release version used}
+  year = {2026},
 }
 ```
