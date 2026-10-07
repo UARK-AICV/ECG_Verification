@@ -7,7 +7,7 @@ let activeBox = 0, drag = null;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 function boxes(lead = selectedLead) {
   const key = `${sample}:${lead}`;
-  if (!annotations.has(key)) annotations.set(key, [{start: 2.0, end: 3.0, top: 0.28, bottom: 0.73}, {start: 5.4, end: 6.4, top: 0.35, bottom: 0.80}]);
+  if (!annotations.has(key)) annotations.set(key, [{start: 2.0, end: 3.0, top: 0, bottom: 1}, {start: 5.4, end: 6.4, top: 0, bottom: 1}]);
   return annotations.get(key);
 }
 const byId = id => document.getElementById(id);
@@ -37,7 +37,7 @@ function svgContent(lead, width, height, detail = false) {
       const plotHeight = height - (detail ? 25 : 0), y = box.top * plotHeight, bottom = box.bottom * plotHeight;
       content += `<rect class="annotation-box" data-box="${index}" data-handle="move" x="${x}" y="${y}" width="${right-x}" height="${bottom-y}" fill="#2875d9" fill-opacity="0.08" stroke="${detail && index === activeBox ? '#1457ad' : '#2875d9'}" stroke-width="${detail ? 2 : 1}"/>`;
       if (detail) {
-        [['nw',x,y],['ne',right,y],['sw',x,bottom],['se',right,bottom]].forEach(([handle,hx,hy]) => {
+        [['w',x,(y+bottom)/2],['e',right,(y+bottom)/2]].forEach(([handle,hx,hy]) => {
           content += `<rect class="box-handle ${handle}" data-box="${index}" data-handle="${handle}" x="${hx-6}" y="${hy-6}" width="12" height="12" rx="2" fill="#fff" stroke="#1457ad" stroke-width="2"/>`;
         });
       }
@@ -52,7 +52,7 @@ function renderDetail() {
   byId('detail-title').textContent = `Lead ${selectedLead}`;
   byId('detail').setAttribute('aria-label', `Synthetic lead ${selectedLead} waveform, 0 to 10 seconds`);
   byId('detail').innerHTML = svgContent(selectedLead, 1000, 200, true);
-  byId('box-status').textContent = 'Drag inside a blue box to move it in any direction. Drag a corner to change its width and height.';
+  byId('box-status').textContent = 'Drag inside a blue box to move it horizontally. Drag its left or right handle to change its width.';
 }
 function render() {
   const grid = byId('lead-grid');
@@ -96,17 +96,13 @@ byId('detail').addEventListener('pointerdown', event => {
 byId('detail').addEventListener('pointermove', event => {
   if (!drag || event.pointerId !== drag.id) return;
   const pos = pointerPosition(event), original = drag.box, box = boxes()[activeBox];
-  const dt = (pos.x - drag.origin.x) / 96, dy = (pos.y - drag.origin.y) / 175;
+  const dt = (pos.x - drag.origin.x) / 96;
   if (drag.handle === 'move') {
     box.start = clamp(original.start + dt, 0, 10 - (original.end - original.start));
     box.end = box.start + original.end - original.start;
-    box.top = clamp(original.top + dy, 0, 1 - (original.bottom - original.top));
-    box.bottom = box.top + original.bottom - original.top;
   } else {
     if (drag.handle.includes('w')) box.start = clamp(original.start + dt, 0, box.end - 0.1);
     if (drag.handle.includes('e')) box.end = clamp(original.end + dt, box.start + 0.1, 10);
-    if (drag.handle.includes('n')) box.top = clamp(original.top + dy, 0, box.bottom - 0.08);
-    if (drag.handle.includes('s')) box.bottom = clamp(original.bottom + dy, box.top + 0.08, 1);
   }
   render();
 });
