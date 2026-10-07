@@ -53,10 +53,6 @@ function renderDetail() {
   byId('detail').setAttribute('aria-label', `Synthetic lead ${selectedLead} waveform, 0 to 10 seconds`);
   byId('detail').innerHTML = svgContent(selectedLead, 1000, 200, true);
   byId('box-status').textContent = 'Drag inside a blue box to move it in any direction. Drag a corner to change its width and height.';
-  const box = boxes()[activeBox];
-  byId('box-select').value = String(activeBox);
-  byId('box-start').value = box.start.toFixed(3);
-  byId('box-end').value = box.end.toFixed(3);
 }
 function render() {
   const grid = byId('lead-grid');
@@ -122,13 +118,3 @@ function endDrag(event) {
 byId('detail').addEventListener('pointerup', endDrag);
 byId('detail').addEventListener('pointercancel', endDrag);
 byId('detail').addEventListener('lostpointercapture', () => { drag = null; });
-byId('box-select').addEventListener('change', event => { activeBox = Number(event.target.value); renderDetail(); });
-byId('apply-box').addEventListener('click', () => {
-  const start = byId('box-start'), end = byId('box-end');
-  if (!start.reportValidity() || !end.reportValidity()) return;
-  if (start.value === '' || end.value === '' || Number(end.value) - Number(start.value) < 0.1) {
-    byId('box-status').textContent = 'Enter start and end times at least 0.1 seconds apart.'; return;
-  }
-  Object.assign(boxes()[activeBox], {start: Number(start.value), end: Number(end.value)});
-  render();
-});
