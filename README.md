@@ -1,45 +1,39 @@
 # ECG Verification
 
-A Python desktop tool for reviewing twelve-lead ECG recordings, editing annotations, and measuring intervals. Built with PySide6 and WFDB.
+A desktop workspace for clinicians to review twelve-lead ECG recordings and refine candidate anomaly annotations.
 
-## Run from source
+## Workflow
 
-Create a virtual environment and install the dependencies:
+1. Segment the ECG into PQRST components.
+2. Apply clinical rules to localize candidate anomalous regions and generate pseudo-labels.
+3. Review the candidates in ECG Verification: move or resize bounding boxes, add or remove annotations, and assign anomaly types.
 
-```sh
-python -m venv .venv
-```
+The desktop app supports the clinician review stage; segmentation and rule-based localization produce its input annotations.
 
-Activate it with `source .venv/bin/activate` on macOS/Linux or `.venv\Scripts\activate` on Windows, then run:
+[Explore the project and interactive demo](https://uark-aicv.github.io/ECG_Verification/).
+
+## Run
+
+In an activated Python virtual environment:
 
 ```sh
 python -m pip install -r requirements.txt
 python main.py
 ```
 
-## Data layout
+Keep recordings and annotations in `sample/`, with `labels.json` and `group/record/` folders containing matching WFDB `.hea`, `.dat`, and `label.json` files. Edits are saved to the annotation files.
 
-The app loads recordings from the `sample` directory beside the source files. One example recording is included.
+## Citation
 
-```text
-sample/
-├── labels.json
-└── group/
-    └── record/
-        ├── record.hea
-        ├── record.dat
-        └── label.json
+If you use this tool, cite the repository:
+
+> *ECG Verification* [Software]. https://github.com/UARK-AICV/ECG_Verification
+
+```bibtex
+@misc{ecg_verification,
+  title = {ECG Verification},
+  howpublished = {Software repository},
+  url = {https://github.com/UARK-AICV/ECG_Verification},
+  note = {Include the commit hash or release version used}
+}
 ```
-
-WFDB record filenames must match their containing folder name. The current app uses a 500 Hz sample rate. Label definitions live in `sample/labels.json`.
-
-## Review workflow
-
-- Navigate recordings with Previous and Next.
-- Open a lead to create, move, resize, or delete annotation spans.
-- Toggle label visibility and add custom labels.
-- Measure intervals, or use Mark First, Mark Last, and Uniform Fill to distribute annotations.
-
-Annotation changes are saved to the local label files. Keep a backup of recordings and labels before editing.
-
-The `ecg` and `processed` directories, virtual environments, caches, and build output are excluded from Git.
