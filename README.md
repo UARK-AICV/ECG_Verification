@@ -27,11 +27,12 @@ Keep recordings and annotations in `sample/`, with `labels.json` and `group/reco
 
 If you use this tool, cite the repository:
 
-> UARK AICV. *ECG Verification Tool* [Software]. https://github.com/UARK-AICV/ECG_Verification
+> UARK AICV. (2026). *ECG Verification Tool* . https://github.com/UARK-AICV/ECG_Verification
 
 ```bibtex
 @misc{ecg_verification,
   author = {{UARK AICV}},
+  year = {2026},
   title = {ECG Verification Tool},
   url = {https://github.com/UARK-AICV/ECG_Verification},
   year = {2026},
