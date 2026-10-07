@@ -12,3 +12,5 @@
 .annotation-box{stroke-width:2;vector-effect:non-scaling-stroke;pointer-events:all}.box-handle{pointer-events:all}.edit-badge{font-size:12px;color:#1457ad;background:#eaf2ff;padding:7px 12px;border-radius:5px}.legend span{background:#2875d914;border:2px solid #2875d9}@media(max-width:620px){.detail-header{gap:12px;flex-wrap:wrap}}
 
 .box-handle.w,.box-handle.e{cursor:ew-resize}
+
+.workspace-bar{background:#f5f1e8}.demo-side{background:#ebe3cd}.lead-tile{background:#fafbff}.legend span{background:#ef44443d;border:1px solid #ef4444}.rhythm-legend span{background:#e000df3d;border-color:#e000df}.edit-badge{color:#a52c2c;background:#ffeded}.lead-tile svg{height:100px}@media(max-width:620px){.lead-tile svg{height:75px}}
